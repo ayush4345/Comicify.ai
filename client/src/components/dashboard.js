@@ -36,6 +36,9 @@ export default function Dashboard() {
               className="mt-1 w-full p-4 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 h-full"
               onChange={(e) => setUserInput(e.target.value)}
             />
+            <button className="bg-teal-600 text-white py-2 px-4 rounded-full drop-shadow-2xl font-poppins text-bold mt-6 ">
+        Submit
+      </button>
           </div>
         </section>
         

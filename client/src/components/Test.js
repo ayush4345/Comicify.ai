@@ -3,18 +3,20 @@ import { useState } from "react"
 export default function Test(){
 
     const [userInput, setUserInput] = useState("")
+    const [output, setOutput] = useState("")
 
     const clickHandler = () => {
 
         const requestOptions = {
             method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({userInput}),
             redirect: "follow",
         }
 
-        fetch("http://localhost:3000/test", requestOptions)
+        fetch("http://127.0.0.1:5000/upload", requestOptions)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => setOutput(data.output))
     }
 
 
@@ -23,6 +25,11 @@ export default function Test(){
             <h1 className=" m-4">Test</h1>
             <input type="text" value={userInput} onChange={(e) => setUserInput(e.target.value)} className=" border-2 border-black p-2"/>
             <button onClick={clickHandler} className=" border-2 border-black p-2">Send</button>
+
+            
+                <h1>
+                    {output}
+                </h1>
         </div>
     )
 }

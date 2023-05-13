@@ -130,7 +130,6 @@
     filter: blur(750px);
 }
 
-
 /* tooltip */
 
 .tooltip {
@@ -181,3 +180,4 @@
     /* number of lines to show */
     -webkit-box-orient: vertical;
 }
+

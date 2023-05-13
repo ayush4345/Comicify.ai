@@ -1,8 +1,8 @@
 import { useState } from "react"
 
-export default function Test(){
+export default function Askgpt(){
 
-    const [userInput, setUserInput] = useState("")
+    const [question, setQuestion] = useState("")
     const [output, setOutput] = useState("")
 
     const clickHandler = () => {
@@ -10,11 +10,11 @@ export default function Test(){
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({userInput}),
+            body: JSON.stringify({question}),
             redirect: "follow",
         }
 
-        fetch("http://127.0.0.1:5000/upload", requestOptions)
+        fetch("http://127.0.0.1:5000/askgpt", requestOptions)
         .then(response => response.json())
         .then(data => setOutput(data.output))
     }
@@ -22,8 +22,8 @@ export default function Test(){
 
     return(
         <div className=" flex items-center justify-center h-screen">
-            <h1 className=" m-4">Test</h1>
-            <input type="text" value={userInput} onChange={(e) => setUserInput(e.target.value)} className=" border-2 border-black p-2"/>
+            <h1 className=" m-4">Ask me a question:</h1>
+            <input type="text" value={question} onChange={(e) => setQuestion(e.target.value)} className=" border-2 border-black p-2"/>
             <button onClick={clickHandler} className=" border-2 border-black p-2">Send</button>
 
             

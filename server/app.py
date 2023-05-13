@@ -8,6 +8,7 @@ from langchain.chains.mapreduce import MapReduceChain
 from langchain.prompts import PromptTemplate
 from langchain.docstore.document import Document
 from langchain.chains.summarize import load_summarize_chain
+import openai
 
 import os
 os.environ["OPENAI_API_KEY"] = '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'
@@ -17,7 +18,7 @@ CORS(app)
 
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/summariser', methods=['POST'])
 def upload():
     user_input=request.get_json()['userInput']
     llm = OpenAI(temperature=0)
@@ -29,5 +30,27 @@ def upload():
     result = chain.run(docs)
     print(result)
     return jsonify({"output":result})
+
+
+@app.route('/askgpt', methods=['POST'])
+def ask_gpt():
+    user_input = request.get_json()['question']
+    response = askGPT(user_input)
+    print(response)
+    return jsonify({"output": response})
+
+def askGPT(text):
+    openai.api_key = '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'
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=text,
+        temperature=0.6,
+        max_tokens=150
+    )
+    return response.choices[0].text
+
+
+
+
 
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { close, parthmittal, menu } from "../assets/index";
 import { navLinks } from "../constants";
 import styles from "../styles/style";
+import Link from "next/link";
 
 
 const Navbar = () => {
@@ -12,13 +12,13 @@ const Navbar = () => {
       <div className={`${styles.boxWidth}`}>
         <nav className="w-full flex justify-between items-center navbar">
           {/* Logo */}
-          <a href="#home">
+          <Link href="/">
             <img
-              src={parthmittal}
-              alt="Parth Mittal"
+              src="/assets/comicify_ai.svg"
+              alt="Comicify.AI"
               className="w-[80px] h-[80px]"
             />
-          </a>
+          </Link>
 
           {/* List of links */}
           <ul className="list-none sm:flex hidden justify-end items-center flex-1">
@@ -32,7 +32,7 @@ const Navbar = () => {
             ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}
             text-black hover:text-teal-200`}
               >
-                <a href={`#${nav.id}`}>{nav.title}</a>
+                <Link href={`#${nav.id}`}>{nav.title}</Link>
               </li>
             ))}
           </ul>
@@ -41,7 +41,7 @@ const Navbar = () => {
           <div className="sm:hidden flex flex-1 justify-end items-center">
             {/* shows toggle icon based on its state */}
             <img
-              src={toggle ? close : menu}
+              src={toggle ? "./assets/close.svg" : "./assets/menu.svg"}
               alt="menu"
               className="w-[28px] h-[28px] object-contain"
               // correct way to change state using the prev
@@ -65,7 +65,7 @@ const Navbar = () => {
               ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}
               text-black`}
                   >
-                    <a href={`#${nav.id}`}>{nav.title}</a>
+                    <Link href={`#${nav.id}`}>{nav.title}</Link>
                   </li>
                 ))}
               </ul>

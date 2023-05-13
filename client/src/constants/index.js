@@ -1,6 +1,3 @@
-import {
-
-  } from "../assets";
 
   import {
     AiFillGithub,
@@ -63,10 +60,6 @@ import {
   export const callToAction = "https://www.linkedin.com/in/mittal-parth";
 
   export const navLinks = [
-    {
-      id: "steps",
-      title: "Steps",
-    },
     {
       id: "features",
       title: "Features",

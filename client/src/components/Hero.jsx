@@ -1,9 +1,12 @@
 import styles from "../styles/style";
 import Lottie from "react-lottie-player";
-import animationData from "../assets/quiz-mode-teal-dark.json";
+import animationData from '@/../../public/assets/quiz-mode-teal-dark.json';
+import { useRouter } from "next/router";
 
 // lottie config
 const Hero = () => {
+  const router = useRouter()
+  
   return (
     <section
       id="home"
@@ -26,6 +29,7 @@ const Hero = () => {
         <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut sed cum placeat maxime ducimus nisi autem iusto ab cumque quae exercitationem, labore alias dolor, ipsam maiores architecto voluptatem consequuntur et.
         </p>
+        <button onClick={() => router.push("/dashboard")} className="btn-gradient">Get Started</button>
       </div>
 
       <div

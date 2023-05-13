@@ -1,0 +1,7 @@
+Flask==2.0.1
+Flask-Cors==3.0.10
+langchain==0.4.0
+openai==0.29.0
+Pillow==8.2.0
+reportlab==3.6.1
+

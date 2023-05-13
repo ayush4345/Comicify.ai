@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <div className={`${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth}`}>
-        <nav className="w-full flex justify-between items-center navbar">
+        <nav className="w-full flex justify-between items-center navbar bg-opacity-25 bg-gray-800">
           {/* Logo */}
           <Link href="/">
             <img
@@ -29,8 +29,9 @@ const Navbar = () => {
             font-normal
             cursor-pointer
             text-[16px]
+            mr-4
             ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}
-            text-black hover:text-teal-200`}
+            text-white text-bold hover:text-fuchsia-600`}
               >
                 <Link href={`#${nav.id}`}>{nav.title}</Link>
               </li>
@@ -63,7 +64,7 @@ const Navbar = () => {
               cursor-pointer
               text-[16px]
               ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}
-              text-black`}
+              text-white text-bold`}
                   >
                     <Link href={`#${nav.id}`}>{nav.title}</Link>
                   </li>

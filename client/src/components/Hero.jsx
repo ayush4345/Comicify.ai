@@ -1,45 +1,35 @@
 import styles from "../styles/style";
 import Lottie from "react-lottie-player";
-import animationData from '@/../../public/assets/quiz-mode-teal-dark.json';
+import animationData from '@/../../public/assets/astronout.json';
 import { useRouter } from "next/router";
 
 // lottie config
 const Hero = () => {
   const router = useRouter()
-  
+
   return (
     <section
       id="home"
       className={`flex md:flex-row flex-col ${styles.paddingY}`}
     >
-      <div
-        className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6`}
-      >
-        {/* Hero text */}
-        <div className="flex flex-row justify-between items-center w-full text-black">
-          <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] text-black ss:leading-[80px] leading-[80px]">
-            Hi, there!
-            <br className="sm:block hidden" /> I am
-          </h1>
-        </div>
 
-        <h1 className="font-poppins font-semibold ss:text-[68px] text-[52px] text-black ss:leading-[80px] leading-[80px] w-full">
-          <span className="text-gradient">HMap.ai</span>
-        </h1>
-        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut sed cum placeat maxime ducimus nisi autem iusto ab cumque quae exercitationem, labore alias dolor, ipsam maiores architecto voluptatem consequuntur et.
-        </p>
-        <button onClick={() => router.push("/dashboard")} className="btn-gradient">Get Started</button>
-      </div>
+<div className="flex  w-full items-center justify-center">
+  {/* <div className="bg-opacity-75 bg-gray-600 w-1/3"></div> */}
+  {/* <div cd className="w-1/3 relative"> */}
+    {/* <div className="absolute inset-0 bg-gradient-to-br from-black to-transparent"></div> */}
+    <div className="flex flex-col items-center justify-center">
+      <Lottie loop animationData={animationData} play className="h-[69vh]"/>
+      <button className="bg-teal-600 text-white py-2 px-4 rounded-full drop-shadow-2xl font-poppins text-bold">
+        Get Started
+      </button>
+    </div>
+  {/* </div> */}
+  {/* <div className="bg-opacity-75 bg-gray-600 w-1/3"></div> */}
+</div>
 
-      <div
-        className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}
-      >
-        <div className="relative z-index-[5] h-[100%] w-[85%]">
-          <Lottie loop animationData={animationData} play />
-        </div>
-        <div className="absolute z-[1] w-[50%] h-[50%] rounded-full bottom-40 white__gradient"></div>
-      </div>
+
+
+
     </section>
   );
 };

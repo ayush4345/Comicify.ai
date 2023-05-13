@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,6 +7,8 @@
     --card-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
     --scrollbar-primary: #00040f;
     --scrollbar-secondary: lightblue;
+  background-image: url("/assets/comics_bg_3.jpg");
+  background-size: cover;
 }
 
 * {

@@ -40,15 +40,15 @@
 }
 
 .text-gradient {
-    background: radial-gradient( 64.18% 64.18% at 71.16% 35.69%, #def9fa 0.89%, #bef3f5 17.23%, #9dedf0 42.04%, #7de7eb 55.12%, #5ce1e6 71.54%, #33bbcf 100%);
+    background: radial-gradient(64.18% 64.18% at 71.16% 35.69%, #ff69b4 0.89%, #e066ff 17.23%, #c71585 42.04%, #800080 55.12%, #8a2be2 71.54%, #4b0082 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-fill-color: transparent;
 }
 
-.bg-blue-gradient {
-    background: linear-gradient( 157.81deg, #def9fa -43.27%, #bef3f5 -21.24%, #9dedf0 12.19%, #7de7eb 29.82%, #5ce1e6 51.94%, #33bbcf 90.29%);
+.bg-pink-purple-gradient {
+    background: linear-gradient(157.81deg, #ff69b4 -43.27%, #e066ff -21.24%, #c71585 12.19%, #800080 29.82%, #8a2be2 51.94%, #4b0082 90.29%);
 }
 
 .bg-black-gradient {

@@ -5,9 +5,12 @@ name = "pypi"
 
 [packages]
 flask = "*"
-langchain = "*"
 flask-cors = "*"
 openai = "*"
+opencv-python = "*"
+numpy = "*"
+pillow = "*"
+convertapi = "*"
 
 [dev-packages]
 

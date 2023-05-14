@@ -9,6 +9,7 @@ from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 import openai
 import convertapi
+import cv2
 
 
 os.environ['STABILITY_HOST'] = 'grpc.stability.ai:443'
@@ -151,7 +152,9 @@ def add_text_to_image(image_path,text_from_prompt, file_number):
 #     ask_gpt()
 #     # Send the file as a response
 def ask_gpt():
-  prompt = "Convert the following boring text into a comic style conversation between characters while retaining information. Try to keep the characters as people from the story. Keep a line break after each dialogue and don't include words like Scene 1, narration context and scenes etc. Keep the name of rhe character and not character number: \n\n\n"
+  prompt = "Convert the following boring text into a comic style conversation between characters while retaining information. Try to keep the characters as people from the story. Keep a line break after each dialogue and don't include words like Scene 1, narration context and scenes etc. Keep the name of he character and not character number: \n\n\n"
+
+#   prompt = "only use name for the following prompt: Convert the following boring text into a comic style conversation between characters while retaining information. Try to keep the characters as people from the story. Keep a line break after each dialogue and don't include words like Scene 1, narration context and scenes etc. paragraph: \n\n\n"
 
   user_input = request.get_json()['userInput']
   print(user_input)
@@ -174,5 +177,5 @@ def ask_gpt():
   return send_file('./file.pdf', as_attachment=True)
   # return jsonify({"person": response[1], "speech": response[0]})
 
-
-app.run(host='0.0.0.0', port=80)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=80)

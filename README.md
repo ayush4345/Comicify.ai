@@ -59,8 +59,7 @@ During the development of Comicify.ai, we encountered and overcame several chall
 
 ## Network Diagram
 
-
-
+![photo_2023-05-14_11-25-38](https://github.com/ayush4345/HMap.ai/assets/97223188/bb057ac4-db8e-4711-9401-17944f88677d)
 
 ## Installation and Setup Guide
 To get started with Comicify.ai, follow these steps:

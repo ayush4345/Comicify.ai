@@ -19,7 +19,7 @@ const Hero = () => {
     {/* <div className="absolute inset-0 bg-gradient-to-br from-black to-transparent"></div> */}
     <div className="flex flex-col items-center justify-center">
       <Lottie loop animationData={animationData} play className="h-[69vh]"/>
-      <button className="bg-teal-600 text-white py-2 px-4 rounded-full drop-shadow-2xl font-poppins text-bold" onClick={() => router.push("/dashboard")}>
+      <button className="bg-teal-600 hover:bg-teal-900 text-white py-3 px-6 rounded-full drop-shadow-2xl font-poppins font-semibold text-2xl" onClick={() => router.push("/dashboard")}>
         Get Started
       </button>
     </div>

@@ -1,5 +1,6 @@
 import os
 import base64
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import io
@@ -11,11 +12,14 @@ import openai
 import convertapi
 import cv2
 
-
+load_dotenv()
 os.environ['STABILITY_HOST'] = 'grpc.stability.ai:443'
 
-os.environ[
-  'STABILITY_KEY'] = 'sk-C2YwwIh4S0Wbj7hcvdByvRtYVkDR1pFVFMjJajrqrMZCHPjr'
+os.environ['STABILITY_KEY'] = os.getenv('STABLE_DIFFUSION_API')
+
+os.environ['OPENAI_API'] = os.getenv('OPEN_AI_API')
+
+os.environ['CONVERT_API_KEY'] = os.getenv('CONVERT_API')
 
 stability_api = client.StabilityInference(
   key=os.environ['STABILITY_KEY'],
@@ -28,7 +32,7 @@ CORS(app)
 
 
 def askGPT(text):
-  openai.api_key = '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'
+  openai.api_key = os.environ['OPENAI_API']
   response = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
     messages=[{
@@ -62,13 +66,13 @@ def generate_map_from_text(text):
   return (d, who_spoke)
 
 
-def stable_diff(person, speech, name):
+def stable_diff(person, speech, name, features, cfg, step):
   answer = stability_api.generate(prompt=f"""
-        Create a comic-style image where {person} says, "{speech}". Capture the expressions of the user from the dialogue.
+        Create a comic-style image where {person} says, "{speech}". Capture the expressions of the user from the dialogue. Add styles based on the following features {features}
         """,
                                   seed=992446758,
-                                  steps=30,
-                                  cfg_scale=8.0,
+                                  steps=int(step),
+                                  cfg_scale=int(cfg),
                                   width=512,
                                   height=512,
                                   samples=1,
@@ -95,7 +99,7 @@ def stable_diff(person, speech, name):
 
 
 def convert_images_to_pdf(images):
-  convertapi.api_secret = 'YFqhabOJQEcuyc5Z'
+  convertapi.api_secret = os.environ['CONVERT_API_KEY']
   convertapi.convert('pdf', {
     'Files': images
   }, from_format='images').file.save('./file.pdf')
@@ -157,14 +161,18 @@ def ask_gpt():
 #   prompt = "only use name for the following prompt: Convert the following boring text into a comic style conversation between characters while retaining information. Try to keep the characters as people from the story. Keep a line break after each dialogue and don't include words like Scene 1, narration context and scenes etc. paragraph: \n\n\n"
 
   user_input = request.get_json()['userInput']
+  customisation = request.get_json()['customizations']
+  cfg = request.get_json()['cfgValue']
+  step = request.get_json()['steps']
   print(user_input)
+  print(customisation)
 
   input = prompt + user_input
   response = askGPT(input)
   print(response)
   generated_images_paths = []
   for i in range(len(response[0])):
-    image_path = stable_diff(response[1][i], response[0][i], i)
+    image_path = stable_diff(response[1][i], response[0][i], i, customisation, cfg, step)
     print(image_path)
     generated_images_paths.append(image_path)
 

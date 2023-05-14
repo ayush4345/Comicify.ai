@@ -31,7 +31,7 @@ export default function Dashboard() {
       redirect: "follow",
     }
 
-    fetch("https://testing-pdf.mardavgandhi.repl.co/", requestOptions)
+    fetch("http://127.0.0.1:5000/", requestOptions)
       .then(response => response.blob())
       .then(blob => {
         const downloadUrl = URL.createObjectURL(blob);

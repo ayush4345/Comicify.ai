@@ -67,5 +67,9 @@ To get started with Comicify.ai, follow these steps:
 
 1. Clone the Comicify.ai repository from [GitHub](https://github.com/your-repo-link).
 
+### For `client` folder
+1. change directory to client `cd client`
+2. install npm packages by running `npm i`
+3. start dev server by running `npm run dev`
 
 

@@ -66,13 +66,13 @@ def generate_map_from_text(text):
   return (d, who_spoke)
 
 
-def stable_diff(person, speech, name, features):
+def stable_diff(person, speech, name, features, cfg, step):
   answer = stability_api.generate(prompt=f"""
         Create a comic-style image where {person} says, "{speech}". Capture the expressions of the user from the dialogue. Add styles based on the following features {features}
         """,
                                   seed=992446758,
-                                  steps=30,
-                                  cfg_scale=8.0,
+                                  steps=int(step),
+                                  cfg_scale=int(cfg),
                                   width=512,
                                   height=512,
                                   samples=1,
@@ -162,6 +162,8 @@ def ask_gpt():
 
   user_input = request.get_json()['userInput']
   customisation = request.get_json()['customizations']
+  cfg = request.get_json()['cfgValue']
+  step = request.get_json()['steps']
   print(user_input)
   print(customisation)
 
@@ -170,7 +172,7 @@ def ask_gpt():
   print(response)
   generated_images_paths = []
   for i in range(len(response[0])):
-    image_path = stable_diff(response[1][i], response[0][i], i, customisation)
+    image_path = stable_diff(response[1][i], response[0][i], i, customisation, cfg, step)
     print(image_path)
     generated_images_paths.append(image_path)
 

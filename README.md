@@ -11,8 +11,8 @@
 </div>
 
 
-![image](https://github.com/ayush4345/HMap.ai/assets/97223188/9d820593-a7e3-4bc8-b225-22b9471dd1c7)
-![image](https://github.com/ayush4345/HMap.ai/assets/97223188/57307062-659c-4359-b997-84aafa2f339a)
+![image](https://github.com/ayush4345/HMap.ai/assets/97223188/bb0e20f0-8e5c-4585-a7cc-7fce3c859230)
+![image](https://github.com/ayush4345/HMap.ai/assets/97223188/f81e2a11-bcdb-405d-b0d2-bb40c608b920)
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/26915c33ce9c4f92a9dea7e012796dcc" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 

@@ -4,11 +4,12 @@ from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import io
 import warnings
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont, ImageColor
 from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 import openai
 import convertapi
+
 
 os.environ['STABILITY_HOST'] = 'grpc.stability.ai:443'
 
@@ -99,6 +100,51 @@ def convert_images_to_pdf(images):
   }, from_format='images').file.save('./file.pdf')
 
 
+
+def add_line_breaks(text):
+# Split the text into a list of words
+    words = text.split()
+    
+    new_text = ''
+    for i, word in enumerate(words):
+      new_text += word
+      if (i+1) % 7 == 0:
+        new_text += '\n'
+      else:
+        new_text += ' '
+        
+    return new_text
+
+
+def add_text_to_image(image_path,text_from_prompt, file_number):
+  #input should be an image and corresponding text needs to be added after padding
+  #text= text
+  #can probably ask for colour of padding, colour of font for each.
+  image = Image.open(image_path)
+
+  right_pad = 0
+  left_pad = 0
+  top_pad = 50
+  bottom_pad = 0
+  
+  width, height = image.size
+  
+  new_width = width + right_pad + left_pad
+  new_height = height + top_pad + bottom_pad
+  result = Image.new(image.mode, (new_width, new_height), (255, 255, 255))
+  result.paste(image, (left_pad, top_pad))
+  font_type = ImageFont.truetype("font/animeace2_reg.ttf", 12)
+  #result.save('output.jpg')
+  #img=Image.open('output.jpg')
+  draw = ImageDraw.Draw(result)
+  draw.text((10, 0), text_from_prompt, fill='black', font=font_type)
+  result.save(f"./images/{file_number}.png")
+  border_img = cv2.imread(f"./images/{file_number}.png")
+  borderoutput = cv2.copyMakeBorder(border_img, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[0, 0, 0])
+  cv2.imwrite(f"./images/{file_number}.png", borderoutput)
+
+
+
 @app.route('/', methods=['POST'])
 # def upload_file():
 
@@ -118,6 +164,9 @@ def ask_gpt():
     image_path = stable_diff(response[1][i], response[0][i], i)
     print(image_path)
     generated_images_paths.append(image_path)
+
+    text = add_line_breaks(response[0][i])
+    add_text_to_image(f"./images/{i}.png",text, i)
     print(generated_images_paths)
 
   convert_images_to_pdf(generated_images_paths)
@@ -125,35 +174,5 @@ def ask_gpt():
   return send_file('./file.pdf', as_attachment=True)
   # return jsonify({"person": response[1], "speech": response[0]})
 
-
-# def add_text_to_image():
-#   #input should be an image and corresponding text needs to be added after padding
-#   #text= text
-#   #can probably ask for colour of padding, colour of font for each.
-#   from PIL import Image, ImageDraw, ImageFont, ImageColor, cv2
-#   image = Image.open("b.jpg")
-
-#   right_pad = 50
-#   left_pad = 0
-#   top_pad = 50
-#   bottom_pad = 0
-
-#   width, height = image.size
-
-#   new_width = width + right_pad + left_pad
-#   new_height = height + top_pad + bottom_pad
-#   result = Image.new(image.mode, (new_width, new_height), (255, 255, 255))
-# result.paste(image, (left, top))
-# font_type = ImageFont.truetype("arial.ttf", 20)
-# #result.save('output.jpg')
-# #img=Image.open('output.jpg')
-# draw = ImageDraw.Draw(result)
-# draw.text((10, 0), text, fill='black', font=font_type)
-# result.save('output.jpg')
-
-# border_img = cv2.imread('output.jpg')
-# borderoutput = cv2.copyMakeBorder(
-#     border_img, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[0, 0, 0])
-# cv2.imwrite('output.jpg', borderoutput)
 
 app.run(host='0.0.0.0', port=80)

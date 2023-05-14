@@ -1,6 +1,6 @@
 import os
 import base64
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import io
 import warnings
@@ -9,13 +9,11 @@ from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 import openai
 import convertapi
-from PIL import Image, ImageDraw, ImageFont, ImageColor
-import cv2
 
 os.environ['STABILITY_HOST'] = 'grpc.stability.ai:443'
 
 os.environ[
-  'STABILITY_KEY'] = 'sk-pDghHBlUbFOU8z4FZ3iRnylPbnM6r6Yyiz1yQatzACAe5VZ6'
+  'STABILITY_KEY'] = 'sk-C2YwwIh4S0Wbj7hcvdByvRtYVkDR1pFVFMjJajrqrMZCHPjr'
 
 stability_api = client.StabilityInference(
   key=os.environ['STABILITY_KEY'],
@@ -29,16 +27,17 @@ CORS(app)
 
 def askGPT(text):
   openai.api_key = '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'
-  response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
-                                          messages=[{
-                                            "role": "system",
-                                            "content": "You are a fun yet knowledgable assistant."
-                                          },{
-                                            "role": "user",
-                                            "content": text
-                                          }],
-                                          temperature=0.6,
-                                          max_tokens=150)
+  response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[{
+      "role": "system",
+      "content": "You are a fun yet knowledgable assistant."
+    }, {
+      "role": "user",
+      "content": text
+    }],
+    temperature=0.6,
+    max_tokens=150)
   speech, person = generate_map_from_text(response.choices[0].message.content)
   return (speech, person)
 
@@ -100,14 +99,17 @@ def convert_images_to_pdf(images):
   }, from_format='images').file.save('./file.pdf')
 
 
-@app.route('/')
+@app.route('/', methods=['POST'])
+# def upload_file():
+
+#     ask_gpt()
+#     # Send the file as a response
 def ask_gpt():
   prompt = "Convert the following boring text into a comic style conversation between characters while retaining information. Try to keep the characters as people from the story. Keep a line break after each dialogue and don't include words like Scene 1, narration context and scenes etc. Keep the name of rhe character and not character number: \n\n\n"
 
-  user_input = """
-  The Supreme Court’s verdict in the case regarding disqualification of Shiv Sena MLAs who quit along with Eknath Shinde has rendered Uddhav Thackeray’s resignation on moral grounds political hara-kiri. Had he not resigned from the chief minister’s post, we could have restored status-quo-ante, the bench said. The current order came almost a year after Thackeray resigned from the chief minister’s post.
-The Shiv Sena and the Bharatiya Janata Party (BJP) have been allies in every national and state election in Maharashtra since the 1989 Lok Sabha election. While the Sena’s Hindutva posturing was a change from its earlier politics of nativism, the 1990s saw it being completely identified with Hindutva, an agenda the BJP had mainstreamed at the national level.
-  """
+  user_input = request.get_json()['userInput']
+  print(user_input)
+
   input = prompt + user_input
   response = askGPT(input)
   print(response)
@@ -120,37 +122,38 @@ The Shiv Sena and the Bharatiya Janata Party (BJP) have been allies in every nat
 
   convert_images_to_pdf(generated_images_paths)
 
-  return jsonify({"person": response[1], "speech": response[0]})
+  return send_file('./file.pdf', as_attachment=True)
+  # return jsonify({"person": response[1], "speech": response[0]})
 
-def add_text_to_image(image_path):
-  #input should be an image and corresponding text needs to be added after padding
-  #text= text
-  #can probably ask for colour of padding, colour of font for each.
-  border_colour=input ("Enter the colour of the border: ")
-  image = Image.open(image_path)
 
-  right_pad = 50
-  left_pad = 0
-  top_pad = 50
-  bottom_pad = 0
-  
-  width, height = image.size
-  
-  new_width = width + right_pad + left_pad
-  new_height = height + top_pad + bottom_pad
-  result = Image.new(image.mode, (new_width, new_height), (255, 255, 255))
-  result.paste(image, (left_pad, top_pad))
-  font_type = ImageFont.truetype("arial.ttf", 20)
-  #result.save('output.jpg')
-  #img=Image.open('output.jpg')
-  draw = ImageDraw.Draw(result)
-  draw.text((10, 0), text, fill='black', font=font_type)
-  result.save('output.jpg')
+# def add_text_to_image():
+#   #input should be an image and corresponding text needs to be added after padding
+#   #text= text
+#   #can probably ask for colour of padding, colour of font for each.
+#   from PIL import Image, ImageDraw, ImageFont, ImageColor, cv2
+#   image = Image.open("b.jpg")
 
-  border_img = cv2.imread('output.jpg')
-  borderoutput = cv2.copyMakeBorder(border_img, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[0, 0, 0])
-  cv2.imwrite('output.jpg', borderoutput)
-  
-  
+#   right_pad = 50
+#   left_pad = 0
+#   top_pad = 50
+#   bottom_pad = 0
+
+#   width, height = image.size
+
+#   new_width = width + right_pad + left_pad
+#   new_height = height + top_pad + bottom_pad
+#   result = Image.new(image.mode, (new_width, new_height), (255, 255, 255))
+# result.paste(image, (left, top))
+# font_type = ImageFont.truetype("arial.ttf", 20)
+# #result.save('output.jpg')
+# #img=Image.open('output.jpg')
+# draw = ImageDraw.Draw(result)
+# draw.text((10, 0), text, fill='black', font=font_type)
+# result.save('output.jpg')
+
+# border_img = cv2.imread('output.jpg')
+# borderoutput = cv2.copyMakeBorder(
+#     border_img, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[0, 0, 0])
+# cv2.imwrite('output.jpg', borderoutput)
 
 app.run(host='0.0.0.0', port=80)

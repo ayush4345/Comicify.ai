@@ -28,7 +28,7 @@ stability_api = client.StabilityInference(
 )
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r'/*': {'origins': '*'}})
 
 
 def askGPT(text):
@@ -109,7 +109,7 @@ def convert_images_to_pdf(images):
 def add_line_breaks(text):
 # Split the text into a list of words
     words = text.split()
-    
+
     new_text = ''
     for i, word in enumerate(words):
       new_text += word
@@ -117,7 +117,7 @@ def add_line_breaks(text):
         new_text += '\n'
       else:
         new_text += ' '
-        
+
     return new_text
 
 
@@ -131,9 +131,9 @@ def add_text_to_image(image_path,text_from_prompt, file_number):
   left_pad = 0
   top_pad = 50
   bottom_pad = 0
-  
+
   width, height = image.size
-  
+
   new_width = width + right_pad + left_pad
   new_height = height + top_pad + bottom_pad
   result = Image.new(image.mode, (new_width, new_height), (255, 255, 255))
@@ -151,6 +151,7 @@ def add_text_to_image(image_path,text_from_prompt, file_number):
 
 
 @app.route('/', methods=['POST'])
+@cross_origin()
 # def upload_file():
 
 #     ask_gpt()

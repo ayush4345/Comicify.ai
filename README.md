@@ -72,4 +72,12 @@ To get started with Comicify.ai, follow these steps:
 2. install npm packages by running `npm i`
 3. start dev server by running `npm run dev`
 
+## members 
 
+[Parth Mittal](https://devfolio.co/@parthmittal)
+
+[Hriday Mehta](https://devfolio.co/@outkast)
+
+[Ayush Kumar](https://devfolio.co/@ayush4345)
+
+[Mardav Chirag Gandhi](https://devfolio.co/@MCG)

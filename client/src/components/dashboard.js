@@ -22,7 +22,12 @@ export default function Dashboard() {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 'userInput': userInput }),
+      body: JSON.stringify({ 
+        'userInput': userInput,
+        'cfgValue': cfgValue,
+        'steps': steps,
+        'customizations': customizations
+      }),
       redirect: "follow",
     }
 

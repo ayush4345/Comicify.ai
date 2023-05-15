@@ -14,6 +14,7 @@
 ![image](https://github.com/ayush4345/HMap.ai/assets/97223188/bb0e20f0-8e5c-4585-a7cc-7fce3c859230)
 ![image](https://github.com/ayush4345/HMap.ai/assets/97223188/f81e2a11-bcdb-405d-b0d2-bb40c608b920)
 
+
 ## Project Idea
 * Comicify.ai is a web application that utilizes various generative machine learning models to transform mundane and ordinary texts into visually captivating comic strips. With Comicify.ai, you can bring your ideas, stories, or any text to life in a vibrant and engaging comic book format.
 
@@ -58,7 +59,9 @@ During the development of Comicify.ai, we encountered and overcame several chall
 
 ## Network Diagram
 
-![photo_2023-05-14_11-25-38](https://github.com/ayush4345/HMap.ai/assets/97223188/bb057ac4-db8e-4711-9401-17944f88677d)
+![image](https://github.com/ayush4345/Comicify.ai/assets/99096397/a0b53597-a997-4837-9dbc-43c47f164766)
+
+
 
 ## Installation and Setup Guide
 To get started with Comicify.ai, follow these steps:

@@ -1,6 +1,7 @@
 <div align="center">
 
-<a href="https://github.com/ayush4345/HMap.ai/blob/main/client/public/assets/comicify_ai.svg"><img src="client/public/assets/comicify_ai.svg" alt="comicify.ai" border="1" width="100"/></a>
+<img src="./COMICIFY_AI.png" alt="comicify.ai" border="1" width="100"/>
+
 <h1 align="center">Comicify.ai</h1>
 
   <p align="center">

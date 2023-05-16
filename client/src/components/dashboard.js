@@ -20,30 +20,32 @@ export default function Dashboard() {
   const clickHandler = () => {
     setLoading(true)
     const requestOptions = {
-      method: "POST",
+      method: "GET",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        'userInput': userInput,
-        'cfgValue': cfgValue,
-        'steps': steps,
-        'customizations': customizations
-      }),
+      // body: JSON.stringify({
+      //   'userInput': userInput,
+      //   'cfgValue': cfgValue,
+      //   'steps': steps,
+      //   'customizations': customizations
+      // }),
       redirect: "follow",
     }
 
-    fetch("http://34.100.188.84:5000/", requestOptions)
-      .then(response => response.blob())
-      .then(blob => {
-        const downloadUrl = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.setAttribute('download', 'file.pdf'); // Specify the filename for the downloaded file
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
+    fetch("http://34.100.188.84:5000/test", requestOptions)
+      .then(response => response.json())
+      .then(result => {console.log(result);
+      // .then(response => response.blob())
+      // .then(blob => {
+      //   const downloadUrl = URL.createObjectURL(blob);
+      //   const link = document.createElement('a');
+      //   link.href = downloadUrl;
+      //   link.setAttribute('download', 'file.pdf'); // Specify the filename for the downloaded file
+      //   document.body.appendChild(link);
+      //   link.click();
+      //   link.remove();
 
-        setLoading(false)
-        setUserInput("")
+      //   setLoading(false)
+      //   setUserInput("")
       })
       .catch(error => {
         console.error('Error downloading file:', error);

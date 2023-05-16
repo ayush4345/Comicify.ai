@@ -10,6 +10,9 @@
 </div>
 
 
+https://github.com/ayush4345/Comicify.ai/assets/76661350/3b166c84-d6f4-4456-999d-56f593e34396
+
+
 ![image](https://github.com/ayush4345/HMap.ai/assets/97223188/bb0e20f0-8e5c-4585-a7cc-7fce3c859230)
 ![image](https://github.com/ayush4345/HMap.ai/assets/97223188/f81e2a11-bcdb-405d-b0d2-bb40c608b920)
 

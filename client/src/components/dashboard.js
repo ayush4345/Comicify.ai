@@ -22,7 +22,7 @@ export default function Dashboard() {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         'userInput': userInput,
         'cfgValue': cfgValue,
         'steps': steps,
@@ -59,6 +59,7 @@ export default function Dashboard() {
             <Lottie loop animationData={loader} play className="h-[40vh]" />
           </div>
           <div className=" font-xl text-white font-semibold p-2">Comicifying...</div>
+          <div className=" font-xl text-white font-semibold p-2">It might take upto a minute, so please be patient</div>
         </div>
         : <div className="flex justify-center gap-5">
 

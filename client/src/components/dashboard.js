@@ -32,7 +32,6 @@ export default function Dashboard() {
     }
 
     fetch("https://e948-34-93-147-134.ngrok-free.app/", requestOptions)
-      .then(response => response.json())
       .then(response => response.blob())
       .then(blob => {
         const downloadUrl = URL.createObjectURL(blob);

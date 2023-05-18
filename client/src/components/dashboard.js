@@ -31,7 +31,7 @@ export default function Dashboard() {
       redirect: "follow",
     }
 
-    fetch("https://d6fb-34-93-147-134.ngrok-free.app/", requestOptions)
+    fetch("https://4546-34-93-147-134.ngrok-free.app/", requestOptions)
       .then(response => response.blob())
       .then(blob => {
         const downloadUrl = URL.createObjectURL(blob);

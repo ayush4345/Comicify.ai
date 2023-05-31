@@ -1,19 +1,34 @@
 <div align="center">
-<!--   <a href="https://github.com/ahmedfahim21/Notimiser">
-    <img src="./client/public/blue-logo.png" alt="Logo" width="80">
-  </a> -->
-<a href="https://github.com/ayush4345/HMap.ai/blob/main/client/public/assets/comicify_ai.svg"><img src="client/public/assets/comicify_ai.svg" alt="comicify.ai" border="1" width="100"/></a>
+
+<img src="./COMICIFY_AI.png" alt="comicify.ai" border="1" width="100"/>
+
 <h1 align="center">Comicify.ai</h1>
 
   <p align="center">
-    Transforming dull text into comic adventures! 
+    Transforming dull text into comic adventures!
   </p>
 </div>
 
 
-![image](https://github.com/ayush4345/HMap.ai/assets/97223188/9d820593-a7e3-4bc8-b225-22b9471dd1c7)
-![image](https://github.com/ayush4345/HMap.ai/assets/97223188/57307062-659c-4359-b997-84aafa2f339a)
+https://github.com/ayush4345/Comicify.ai/assets/76661350/3b166c84-d6f4-4456-999d-56f593e34396
 
+
+![image](https://github.com/ayush4345/HMap.ai/assets/97223188/bb0e20f0-8e5c-4585-a7cc-7fce3c859230)
+![image](https://github.com/ayush4345/HMap.ai/assets/97223188/f81e2a11-bcdb-405d-b0d2-bb40c608b920)
+
+<br/>
+
+## Table of Contents
+
+1. [Project Idea](#project-idea)
+2. [Our Approach](#our-approach)
+3. [Challenges We Faced](#challenges-we-faced)
+4. [Technologies We Used](#technologies-we-used)
+5. [Network Diagram](#network-diagram)
+6. [Installation and Setup Guide](#installation-and-setup-guide)
+7. [Team Members](#team-members)
+
+<br/>
 
 ## Project Idea
 * Comicify.ai is a web application that utilizes various generative machine learning models to transform mundane and ordinary texts into visually captivating comic strips. With Comicify.ai, you can bring your ideas, stories, or any text to life in a vibrant and engaging comic book format.
@@ -26,6 +41,7 @@
 
 * Whether you're an aspiring comic artist, a writer looking to add an exciting visual element to your stories, or simply someone who wants to explore the fascinating world of comics, join us on this exciting journey of turning words into art, as we invite you to unleash your creativity and experience the magic of Comicify.ai!
 
+<br/>
 
 ## Our Approach
 
@@ -41,6 +57,7 @@
 
 Through our approach, we aim to empower users to transform their plain text into compelling visual narratives. By leveraging the capabilities of GPT-3.5 Turbo, incorporating advanced image generation techniques, and utilizing Flask for efficient processing, Comicify.ai delivers an immersive comic creation experience that sparks creativity and storytelling.
 
+<br/>
 
 ## Challenges We Faced
 During the development of Comicify.ai, we encountered and overcame several challenges, including:
@@ -48,6 +65,8 @@ During the development of Comicify.ai, we encountered and overcame several chall
 * Finding suitable free-to-use stable diffusion APIs.
 * Developing a reliable image generation pipeline.
 * Saving and organizing generated images, and generating a downloadable PDF file.
+
+<br/>
 
 ## Technologies We Used
 
@@ -57,21 +76,56 @@ During the development of Comicify.ai, we encountered and overcame several chall
 * ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 * ![Replit](https://img.shields.io/badge/Replit-DD1200?style=for-the-badge&logo=Replit&logoColor=white)
 
+<br/>
+
 ## Network Diagram
 
-![photo_2023-05-14_11-25-38](https://github.com/ayush4345/HMap.ai/assets/97223188/bb057ac4-db8e-4711-9401-17944f88677d)
+![image](https://github.com/ayush4345/Comicify.ai/assets/99096397/a0b53597-a997-4837-9dbc-43c47f164766)
+
+
+<br/>
 
 ## Installation and Setup Guide
 To get started with Comicify.ai, follow these steps:
 
-1. Clone the Comicify.ai repository from [GitHub](https://github.com/your-repo-link).
+1. Clone the repo: `git clone https://github.com/ayush4345/Comicify.ai.git`
+2. `cd Comicify.ai`
 
-### For `client` folder
-1. change directory to client `cd client`
-2. install npm packages by running `npm i`
-3. start dev server by running `npm run dev`
+### Install the Next.js Frontend
 
-## members 
+1. Change directory to client by `cd client`
+2. Install npm packages by running `npm i`
+3. Start the dev server by running `npm run dev`
+4. Ensure that `./client/src/components/dashboard.js` has the localhost URL for the server:
+
+```js
+
+fetch("http://localhost:5000/", requestOptions)
+....
+
+```
+
+### Install the Flask Backend
+
+1. Change directory to server by `cd server`
+2. Rename the `.env.example` file to `.env` and enter API keys:
+
+    a. `OPEN_AI_API = '<your-api-key>'`. Follow [these](https://www.howtogeek.com/885918/how-to-get-an-openai-api-key/) instructions to obtain your key from OpenAI.
+
+    b. `STABLE_DIFFUSION_API = '<your-api-key>'`. Follow [these](https://platform.stability.ai/docs/getting-started/authentication/) instructions to obtain your key from Dream Studio.
+
+    c. `CONVERT_API = '<your-api-key>'`. Follow [these](https://help.convertapi.com/en/article/where-do-i-find-my-secret-key-v7w9vn/#:~:text=In%20order%20to%20get%20your,on%20the%20top%20right%20corner.) instructions to obtain your key from Convert API.
+
+3. Create a virtualenv and activate it (assuming you have Python, virtualenv and pip installed) using [these](https://www.geeksforgeeks.org/creating-python-virtual-environment-windows-linux/) instructions
+
+4. Make sure you are inside the `server` directory.
+Install the required packages using `pip install -r requirements.txt`
+
+5. Run the flask server using `flask --app main run`
+
+<br/>
+
+## Team Members
 
 [Parth Mittal](https://devfolio.co/@parthmittal)
 

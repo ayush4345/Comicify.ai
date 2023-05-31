@@ -26,7 +26,7 @@ export default function Askgpt(){
             <input type="text" value={question} onChange={(e) => setQuestion(e.target.value)} className=" border-2 border-black p-2"/>
             <button onClick={clickHandler} className=" border-2 border-black p-2">Send</button>
 
-            
+
                 <h1>
                     {output}
                 </h1>

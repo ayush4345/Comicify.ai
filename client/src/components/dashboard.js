@@ -31,7 +31,7 @@ export default function Dashboard() {
       redirect: "follow",
     }
 
-    fetch("http://127.0.0.1:5000/", requestOptions)
+    fetch("https://comicbackend.mardavgandhi.repl.co/", requestOptions)
       .then(response => response.blob())
       .then(blob => {
         const downloadUrl = URL.createObjectURL(blob);

@@ -32,7 +32,7 @@ export default function Dashboard() {
     }
 
 
-    fetch("https://4546-34-93-147-134.ngrok-free.app/", requestOptions)
+    fetch("https://comicbackend.mardavgandhi.repl.co/", requestOptions)
       .then(response => response.blob())
       .then(blob => {
         const downloadUrl = URL.createObjectURL(blob);

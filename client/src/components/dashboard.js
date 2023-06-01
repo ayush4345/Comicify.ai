@@ -31,7 +31,7 @@ export default function Dashboard() {
       redirect: "follow",
     }
 
-    fetch("https://8c99-35-244-26-33.ngrok-free.app/", requestOptions)
+    fetch("https://efcf-35-244-26-33.ngrok-free.app/", requestOptions)
 
       .then(response => response.blob())
       .then(blob => {

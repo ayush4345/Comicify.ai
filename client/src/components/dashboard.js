@@ -13,7 +13,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false)
   const [cfgValue, setCfgValue] = useState(8)
   const [steps, setSteps] = useState(30)
-  const  [customizations, setCustomizations] = useState("")
+  const [customizations, setCustomizations] = useState("")
 
   const fileTypes = ["PDF"];
 
@@ -32,6 +32,7 @@ export default function Dashboard() {
     }
 
     fetch("https://8c99-35-244-26-33.ngrok-free.app/", requestOptions)
+
       .then(response => response.blob())
       .then(blob => {
         const downloadUrl = URL.createObjectURL(blob);
@@ -85,7 +86,7 @@ export default function Dashboard() {
                 className="mt-1 w-full p-4 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 h-full"
                 onChange={(e) => setUserInput(e.target.value)}
               />
-               <label
+              <label
                 for="customizations"
                 className="block text-xs font-medium text-gray-700 mt-2"
               >
@@ -100,7 +101,7 @@ export default function Dashboard() {
                 value={customizations}
                 onChange={(e) => setCustomizations(e.target.value)}
                 className="mt-1 w-full p-3 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 "
-                >
+              >
               </textarea>
               <div className="flex gap-4 mt-4">
                 <span className="w-full">

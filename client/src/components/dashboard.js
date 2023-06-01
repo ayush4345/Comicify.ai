@@ -31,8 +31,8 @@ export default function Dashboard() {
       redirect: "follow",
     }
 
+    fetch("https://8c99-35-244-26-33.ngrok-free.app/", requestOptions)
 
-    fetch("https://comicbackend.mardavgandhi.repl.co/", requestOptions)
       .then(response => response.blob())
       .then(blob => {
         const downloadUrl = URL.createObjectURL(blob);

@@ -31,7 +31,7 @@ export default function Dashboard() {
       redirect: "follow",
     }
 
-    fetch("https://f644-35-244-26-33.ngrok-free.app/", requestOptions)
+    fetch("https://backend.comicify-ai-backend.com:5000/", requestOptions)
 
       .then(response => response.blob())
       .then(blob => {

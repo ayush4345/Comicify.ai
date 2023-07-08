@@ -8,9 +8,9 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <div className={`${styles.paddingX} ${styles.flexCenter}`}>
+    <div className={styles.flexCenter}>
       <div className={`${styles.boxWidth}`}>
-        <nav className="w-full flex justify-between items-center navbar bg-opacity-25 bg-gray-800">
+        <nav className={`w-full flex justify-between items-center navbar bg-opacity-25 bg-gray-800 ${styles.paddingX}`}>
           {/* Logo */}
           <Link href="/">
             <img
@@ -30,12 +30,22 @@ const Navbar = () => {
             cursor-pointer
             text-[16px]
             mr-4
-            ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}
             text-white text-bold hover:text-fuchsia-600`}
               >
                 <Link href={`#${nav.id}`}>{nav.title}</Link>
               </li>
             ))}
+            <li
+              key="examples"
+              className={`font-poppins
+            font-normal
+            cursor-pointer
+            text-[16px]
+            mr-4
+            text-white text-bold hover:text-fuchsia-600`}
+            >
+              <Link href="https://drive.google.com/drive/folders/1UuJ6BepGKRlG9Dya3IVtHVsYuK3meZrj?usp=sharing" target="_blank">Examples</Link>
+            </li>
           </ul>
 
           {/* only for mobile devices, created separately */}
@@ -63,12 +73,23 @@ const Navbar = () => {
               font-normal
               cursor-pointer
               text-[16px]
-              ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}
+              mb-4
               text-white text-bold`}
                   >
                     <Link href={`#${nav.id}`}>{nav.title}</Link>
                   </li>
                 ))}
+                <li
+                  key="examples"
+                  className={`font-poppins
+                  font-normal
+                  cursor-pointer
+                  text-[16px]
+                  mb-0
+                  text-white text-bold`}
+                >
+                  <Link href="https://drive.google.com/drive/folders/1UuJ6BepGKRlG9Dya3IVtHVsYuK3meZrj?usp=sharing" target="_blank">Examples</Link>
+                </li>
               </ul>
             </div>
           </div>

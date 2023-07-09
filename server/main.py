@@ -25,13 +25,11 @@ stability_api = client.StabilityInference(
     engine="stable-diffusion-xl-beta-v2-2-2",
 )
 
-
 app = Flask(__name__)
 
 CORS(app, resources={r'/*': {'origins': '*'}})
 
 # ==== Helper Functions ====
-
 
 """
 # This function interacts with the GPT-3.5-turbo language model through the OpenAI API.
@@ -50,21 +48,14 @@ def convert_text_to_conversation(text):
         model="gpt-3.5-turbo",
 
         messages=[{
-
             "role": "system",
-
             "content": "You are a fun yet knowledgable assistant."
-
         }, {
-
             "role": "user",
-
             "content": text
-
         }],
 
         temperature=0.6,
-
         max_tokens=150)
 
     # Process the response to extract speech and person information
@@ -81,31 +72,21 @@ def convert_text_to_conversation(text):
 def generate_map_from_text(text):
 
     d = {}
-
     who_spoke = {}
-
     dialogue = []
-
     speak = []
 
     l = text.split("\n")
 
     for word in l:
-
         i = 0
-
         if 'Scene' not in word and 'Act' not in word:
-
             if ':' in word:
-
                 dialogue.append((word.split(':')[1]))
-
                 speak.append((word.split(':')[0]))
 
         for i in range(len(dialogue)):
-
             d[i] = dialogue[i]
-
             who_spoke[i] = speak[i]
 
     return (d, who_spoke)
@@ -125,19 +106,12 @@ def stable_diff(person, speech, name, features, cfg, step):
         """,
 
         seed=992446758,
-
         steps=int(step),
-
         cfg_scale=int(cfg),
-
         width=512,
-
         height=512,
-
         samples=1,
-
         sampler=generation.SAMPLER_K_DPMPP_2M
-
     )
 
     # Check if the folder exists, create it if necessary
@@ -148,11 +122,8 @@ def stable_diff(person, speech, name, features, cfg, step):
     print(answer)
 
     for resp in answer:
-
         for artifact in resp.artifacts:
-
             if artifact.finish_reason == generation.FILTER:
-
                 warnings.warn(
 
                     "Your request activated the API's safety filters and could not be processed."
@@ -160,16 +131,11 @@ def stable_diff(person, speech, name, features, cfg, step):
                     "Please modify the prompt and try again.")
 
             if artifact.type == generation.ARTIFACT_IMAGE:
-
                 image_path = os.path.join(folder_path, f"{name}.png")
-
                 img_binary = io.BytesIO(artifact.binary)
-
                 img = Image.open(img_binary)
-
                 img.save(image_path)
 
-                print("hii")
                 return image_path
 
 
@@ -180,9 +146,7 @@ def convert_images_to_pdf(images):
     convertapi.api_secret = os.environ['CONVERT_API_KEY']
 
     convertapi.convert('pdf', {
-
         'Files': images
-
     }, from_format='images').file.save('./file.pdf')
 
 
@@ -193,19 +157,12 @@ def add_line_breaks(text):
     # Split the text into a list of words
 
     words = text.split()
-
     new_text = ''
-
     for i, word in enumerate(words):
-
         new_text += word
-
         if (i+1) % 7 == 0:
-
             new_text += '\n'
-
         else:
-
             new_text += ' '
 
     return new_text
@@ -222,19 +179,13 @@ def add_text_to_image(image_path, text_from_prompt, file_number):
     # can probably ask for colour of padding, colour of font for each.
 
     image = Image.open(image_path)
-
     right_pad = 0
-
     left_pad = 0
-
     top_pad = 50
-
     bottom_pad = 0
-
     width, height = image.size
 
     new_width = width + right_pad + left_pad
-
     new_height = height + top_pad + bottom_pad
 
     result = Image.new(image.mode, (new_width, new_height), (255, 255, 255))
@@ -247,11 +198,8 @@ def add_text_to_image(image_path, text_from_prompt, file_number):
     # img=Image.open('output.jpg')
 
     draw = ImageDraw.Draw(result)
-
     draw.text((10, 0), text_from_prompt, fill='black', font=font_type)
-
     result.save(f"./images/{file_number}.png")
-
     border_img = cv2.imread(f"./images/{file_number}.png")
 
     borderoutput = cv2.copyMakeBorder(

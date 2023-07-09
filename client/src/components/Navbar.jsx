@@ -45,7 +45,7 @@ const Navbar = () => {
               mr-4
               text-white text-bold hover:text-teal-300 ${classes.hoverUnderlineAnimation}`}
             >
-              <Link href="https://drive.google.com/drive/folders/1UuJ6BepGKRlG9Dya3IVtHVsYuK3meZrj?usp=sharing" target="_blank">Examples</Link>
+              <Link href="https://ayush45.notion.site/Comicify-ai-00a713496a054062bc94f68ab02ae8a1?pvs=4" target="_blank">Examples</Link>
             </li>
           </ul>
 

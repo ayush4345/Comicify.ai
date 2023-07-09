@@ -31,7 +31,7 @@ export default function Dashboard() {
       redirect: "follow",
     }
 
-    fetch("https://backend.comicify-ai-backend.com:5000/", requestOptions)
+    fetch("https://backend.comicify-ai-backend.com/", requestOptions)
 
       .then(response => response.blob())
       .then(blob => {

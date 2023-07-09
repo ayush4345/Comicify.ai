@@ -2,6 +2,7 @@ import { useState } from "react";
 import { navLinks } from "../constants";
 import styles from "../styles/style";
 import Link from "next/link";
+import classes from "./Navbar.module.css";
 
 
 const Navbar = () => {
@@ -26,23 +27,23 @@ const Navbar = () => {
               <li
                 key={nav.id}
                 className={`font-poppins
-            font-normal
             cursor-pointer
             text-[16px]
-            mr-4
-            text-white text-bold hover:text-fuchsia-600`}
+            font-semibold
+            mr-4 
+            text-white text-bold hover:text-teal-300 ${classes.hoverUnderlineAnimation}`}
               >
                 <Link href={`#${nav.id}`}>{nav.title}</Link>
               </li>
             ))}
             <li
               key="examples"
-              className={`font-poppins
-            font-normal
-            cursor-pointer
-            text-[16px]
-            mr-4
-            text-white text-bold hover:text-fuchsia-600`}
+              className={` font-poppins
+              font-semibold
+              cursor-pointer
+              text-[16px]
+              mr-4
+              text-white text-bold hover:text-teal-300 ${classes.hoverUnderlineAnimation}`}
             >
               <Link href="https://drive.google.com/drive/folders/1UuJ6BepGKRlG9Dya3IVtHVsYuK3meZrj?usp=sharing" target="_blank">Examples</Link>
             </li>
@@ -88,7 +89,7 @@ const Navbar = () => {
                   mb-0
                   text-white text-bold`}
                 >
-                  <Link href="https://drive.google.com/drive/folders/1UuJ6BepGKRlG9Dya3IVtHVsYuK3meZrj?usp=sharing" target="_blank">Examples</Link>
+                  <Link href="https://ayush45.notion.site/Comicify-ai-00a713496a054062bc94f68ab02ae8a1?pvs=4" target="_blank">Examples</Link>
                 </li>
               </ul>
             </div>

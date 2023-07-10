@@ -95,7 +95,7 @@ export default function Dashboard() {
                 cols="50"
                 type="text"
                 id="UserMessage"
-                placeholder="write your message here and also write the character and modification you want to have"
+                placeholder="Write a clear and descriptive message about what you would like to comicify. Check the Examples if you'd like to get some inspiration!"
                 value={userInput}
                 className="mt-1 w-full p-4 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 h-full"
                 onChange={(e) => setUserInput(e.target.value)}
@@ -111,7 +111,7 @@ export default function Dashboard() {
                 cols="50"
                 id="customizations"
                 type="text"
-                placeholder="put your fav style according to which you want to customize"
+                placeholder="Enter your favourite comic style like DC, Marvel, Anime or get creative!"
                 value={customizations}
                 onChange={(e) => setCustomizations(e.target.value)}
                 className="mt-1 w-full p-3 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 "

@@ -25,7 +25,7 @@ const Navbar = () => {
           <ul className="list-none sm:flex hidden justify-end items-center flex-1">
             {navLinks.map((nav, index) => (
               <li
-                key={nav.id}
+                key={index}
                 className={`font-poppins
             cursor-pointer
             text-[16px]
@@ -33,20 +33,9 @@ const Navbar = () => {
             mr-4 
             text-white text-bold hover:text-teal-300 ${classes.hoverUnderlineAnimation}`}
               >
-                <Link href={`#${nav.id}`}>{nav.title}</Link>
+                <Link href={`${nav.url}`} target="_blank">{nav.title}</Link>
               </li>
             ))}
-            <li
-              key="examples"
-              className={` font-poppins
-              font-semibold
-              cursor-pointer
-              text-[16px]
-              mr-4
-              text-white text-bold hover:text-teal-300 ${classes.hoverUnderlineAnimation}`}
-            >
-              <Link href="https://ayush45.notion.site/Comicify-ai-00a713496a054062bc94f68ab02ae8a1?pvs=4" target="_blank">Examples</Link>
-            </li>
           </ul>
 
           {/* only for mobile devices, created separately */}
@@ -69,7 +58,7 @@ const Navbar = () => {
               <ul className="list-none flex flex-col justify-end items-center flex-1">
                 {navLinks.map((nav, index) => (
                   <li
-                    key={nav.id}
+                    key={index}
                     className={`font-poppins
               font-normal
               cursor-pointer
@@ -77,20 +66,9 @@ const Navbar = () => {
               mb-4
               text-white text-bold`}
                   >
-                    <Link href={`#${nav.id}`}>{nav.title}</Link>
+                    <Link href={`${nav.url}`} target="_blank">{nav.title}</Link>
                   </li>
                 ))}
-                <li
-                  key="examples"
-                  className={`font-poppins
-                  font-normal
-                  cursor-pointer
-                  text-[16px]
-                  mb-0
-                  text-white text-bold`}
-                >
-                  <Link href="https://ayush45.notion.site/Comicify-ai-00a713496a054062bc94f68ab02ae8a1?pvs=4" target="_blank">Examples</Link>
-                </li>
               </ul>
             </div>
           </div>

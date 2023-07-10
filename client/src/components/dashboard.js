@@ -42,9 +42,9 @@ export default function Dashboard() {
         redirect: "follow",
       }
 
+
       const response = await fetch("https://backend.comicify-ai-backend.com/", requestOptions)
       if (response.ok) {
-
         const blob = await response.blob();
         const downloadUrl = URL.createObjectURL(blob);
         const link = document.createElement('a');

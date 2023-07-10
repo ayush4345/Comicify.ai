@@ -107,7 +107,6 @@ def generate_map_from_text(text):
 
 def stable_diff(person, speech, name, features, cfg, step):
     try:
-        print("stable_diff")
         answer = stability_api.generate(
             prompt=f"""
 

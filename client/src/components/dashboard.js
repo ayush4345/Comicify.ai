@@ -21,10 +21,7 @@ export default function Dashboard() {
   const fileTypes = ["PDF"];
 
   const limitCharacters = (text) => {
-    if (text.length <= 30) {
-      return text;
-    }
-    return text.slice(0, 30) + "...";
+    return (text.length <= 30) ? text : (text.slice(0, 30) + "...");
   };
 
   const clickHandler = async () => {
@@ -59,8 +56,6 @@ export default function Dashboard() {
 
       } else {
         const err = await response.json()
-        console.log(err.error)
-        console.log("error occured")
         const message = limitCharacters(err.error)
         setErrMessage(message)
         setLoading(false)
@@ -68,7 +63,6 @@ export default function Dashboard() {
       }
 
     } catch (err) {
-      console.log(err)
       setLoading(false)
     }
 

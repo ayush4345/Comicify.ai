@@ -132,11 +132,7 @@ def stable_diff(person, speech, name, features, cfg, step):
             # Save the generated image to the folder
 
         for resp in answer:
-            print("resp \n\n\n\n")
-            # print(resp)
             for artifact in resp.artifacts:
-                print("artifact \n\n\n\n")
-                # print(artifact)
                 if artifact.finish_reason == generation.FILTER:
                     raise Exception(
                         "Your request activated the API's safety filters and could not be processed. Please modify the prompt and try again")
@@ -152,10 +148,11 @@ def stable_diff(person, speech, name, features, cfg, step):
         details_match = re.search('details = "(.*?)"', error_message)
         if details_match:
             details = details_match.group(1)
-            print("Error occurred as : " + details)
+            error_message = f"Error occurred as: {details}"
         else:
-            print("Error occurred: " + error_message)
-        raise Exception(f"Error occurred during image generation using Stable Diffusion API: {e}")
+            error_message = f"Error occurred: {error_message}"
+        print(error_message)
+        raise Exception(error_message)
 
 
 # Convert the generated images to a PDF file using the ConvertAPI

@@ -2,15 +2,16 @@ import { useState } from "react";
 import { navLinks } from "../constants";
 import styles from "../styles/style";
 import Link from "next/link";
+import classes from "./Navbar.module.css";
 
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <div className={`${styles.paddingX} ${styles.flexCenter}`}>
+    <div className={styles.flexCenter}>
       <div className={`${styles.boxWidth}`}>
-        <nav className="w-full flex justify-between items-center navbar bg-opacity-25 bg-gray-800">
+        <nav className={`w-full flex justify-between items-center navbar bg-opacity-25 bg-gray-800 ${styles.paddingX}`}>
           {/* Logo */}
           <Link href="/">
             <img
@@ -24,16 +25,15 @@ const Navbar = () => {
           <ul className="list-none sm:flex hidden justify-end items-center flex-1">
             {navLinks.map((nav, index) => (
               <li
-                key={nav.id}
+                key={index}
                 className={`font-poppins
-            font-normal
             cursor-pointer
             text-[16px]
-            mr-4
-            ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}
-            text-white text-bold hover:text-fuchsia-600`}
+            font-semibold
+            mr-4 
+            text-white text-bold hover:text-teal-300 ${classes.hoverUnderlineAnimation}`}
               >
-                <Link href={`#${nav.id}`}>{nav.title}</Link>
+                <Link href={`${nav.url}`} target="_blank">{nav.title}</Link>
               </li>
             ))}
           </ul>
@@ -58,15 +58,15 @@ const Navbar = () => {
               <ul className="list-none flex flex-col justify-end items-center flex-1">
                 {navLinks.map((nav, index) => (
                   <li
-                    key={nav.id}
+                    key={index}
                     className={`font-poppins
               font-normal
               cursor-pointer
               text-[16px]
-              ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}
+              mb-4
               text-white text-bold`}
                   >
-                    <Link href={`#${nav.id}`}>{nav.title}</Link>
+                    <Link href={`${nav.url}`} target="_blank">{nav.title}</Link>
                   </li>
                 ))}
               </ul>

@@ -14,6 +14,7 @@ export default function Dashboard() {
   const [cfgValue, setCfgValue] = useState(8)
   const [steps, setSteps] = useState(30)
   const [customizations, setCustomizations] = useState("")
+  const [errMessage, setErrMessage] = useState("")
 
   const fileTypes = ["PDF"];
 
@@ -63,9 +64,7 @@ export default function Dashboard() {
           <div className=" font-xl text-white font-semibold p-2">It might take upto a minute, so please be patient</div>
         </div>
         : <div className="flex justify-center gap-5">
-
           <section
-
             className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 h-[550px] w-[600px]"
           >
             <div className="flex flex-col h-full w-full p-4 leading-normal">
@@ -75,7 +74,6 @@ export default function Dashboard() {
               >
                 Prompt
               </label>
-
               <textarea
                 rows="4"
                 cols="50"
@@ -121,8 +119,6 @@ export default function Dashboard() {
 
         </div>
       }
-
-
     </main>
   );
 }

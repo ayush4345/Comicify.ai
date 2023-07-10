@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import Lottie from "react-lottie-player";
 import loader from '@/../../public/assets/loader.json';
@@ -28,7 +28,7 @@ export default function Dashboard() {
     return (text.length <= 30) ? text : (text.slice(0, 30) + "...");
   };
 
-  const clickHandler = async () => {
+  const submitHandler = async () => {
     try {
       setLoading(true)
       const requestOptions = {
@@ -72,6 +72,14 @@ export default function Dashboard() {
 
   }
 
+  const clickHandler = () => {
+    if (userInput.length == 0) {
+      setErrMessage("Please enter a prompt")
+      setOpen(true)
+    } else {
+      submitHandler();
+    }
+  }
 
   return (
     <main className="flex justify-center flex-col min-h-[80vh]">

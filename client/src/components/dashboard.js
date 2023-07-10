@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import Lottie from "react-lottie-player";
 import loader from '@/../../public/assets/loader.json';
@@ -17,6 +17,10 @@ export default function Dashboard() {
   const [customizations, setCustomizations] = useState("")
   const [errMessage, setErrMessage] = useState("")
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    document.title = "Dashboard | ComicifyAI";
+  }, []);
 
   const fileTypes = ["PDF"];
 

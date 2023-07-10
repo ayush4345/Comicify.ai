@@ -12,6 +12,7 @@ import openai
 import convertapi
 import cv2
 import json
+import re
 
 load_dotenv()
 
@@ -132,10 +133,10 @@ def stable_diff(person, speech, name, features, cfg, step):
 
         for resp in answer:
             print("resp \n\n\n\n")
-            print(resp)
+            # print(resp)
             for artifact in resp.artifacts:
                 print("artifact \n\n\n\n")
-                print(artifact)
+                # print(artifact)
                 if artifact.finish_reason == generation.FILTER:
                     raise Exception(
                         "Your request activated the API's safety filters and could not be processed. Please modify the prompt and try again")
@@ -147,8 +148,15 @@ def stable_diff(person, speech, name, features, cfg, step):
                     img.save(image_path)
                     return image_path
     except Exception as e:
-        print("Error occured as: " + str(e))
-        raise Exception("Error occurred during image generation using Stable Diffusion API: {e}")
+        error_message = str(e)
+        details_match = re.search('details = "(.*?)"', error_message)
+        if details_match:
+            details = details_match.group(1)
+            print("Error occurred as: " + details)
+        else:
+            print("Error occurred: " + error_message)
+        raise Exception(f"Error occurred during image generation using Stable Diffusion API: {e}")
+
 
 # Convert the generated images to a PDF file using the ConvertAPI
 

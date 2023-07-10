@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import Lottie from "react-lottie-player";
 import loader from '@/../../public/assets/loader.json';
+import CustomizedSnackbars from "./Snackbar";
 
 export default function Dashboard() {
   const [userInput, setUserInput] = useState("");
@@ -15,27 +16,36 @@ export default function Dashboard() {
   const [steps, setSteps] = useState(30)
   const [customizations, setCustomizations] = useState("")
   const [errMessage, setErrMessage] = useState("")
+  const [open, setOpen] = useState(false);
 
   const fileTypes = ["PDF"];
 
-  const clickHandler = () => {
-    setLoading(true)
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        'userInput': userInput,
-        'cfgValue': cfgValue,
-        'steps': steps,
-        'customizations': customizations
-      }),
-      redirect: "follow",
+  const limitCharacters = (text) => {
+    if (text.length <= 30) {
+      return text;
     }
+    return text.slice(0, 30) + "...";
+  };
 
-    fetch("https://backend.comicify-ai-backend.com:5000/", requestOptions)
+  const clickHandler = async () => {
+    try {
+      setLoading(true)
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          'userInput': userInput,
+          'cfgValue': cfgValue,
+          'steps': steps,
+          'customizations': customizations
+        }),
+        redirect: "follow",
+      }
 
-      .then(response => response.blob())
-      .then(blob => {
+      const response = await fetch("https://backend.comicify-ai-backend.com/", requestOptions)
+      if (response.ok) {
+
+        const blob = await response.blob();
         const downloadUrl = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = downloadUrl;
@@ -46,12 +56,24 @@ export default function Dashboard() {
 
         setLoading(false)
         setUserInput("")
-      })
-      .catch(error => {
-        console.error('Error downloading file:', error);
+
+      } else {
+        const err = await response.json()
+        console.log(err.error)
+        console.log("error occured")
+        const message = limitCharacters(err.error)
+        setErrMessage(message)
+        setLoading(false)
+        setOpen(true)
       }
-      );
+
+    } catch (err) {
+      console.log(err)
+      setLoading(false)
+    }
+
   }
+
 
   return (
     <main className="flex justify-center flex-col min-h-[80vh]">
@@ -119,6 +141,10 @@ export default function Dashboard() {
 
         </div>
       }
+      <div>
+        <CustomizedSnackbars open={open} setOpen={setOpen} message={errMessage} />
+      </div>
     </main>
   );
 }
+

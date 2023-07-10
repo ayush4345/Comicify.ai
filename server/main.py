@@ -152,7 +152,7 @@ def stable_diff(person, speech, name, features, cfg, step):
         details_match = re.search('details = "(.*?)"', error_message)
         if details_match:
             details = details_match.group(1)
-            print("Error occurred as: " + details)
+            print("Error occurred as : " + details)
         else:
             print("Error occurred: " + error_message)
         raise Exception(f"Error occurred during image generation using Stable Diffusion API: {e}")

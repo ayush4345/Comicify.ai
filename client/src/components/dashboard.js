@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import Lottie from "react-lottie-player";
 import loader from '@/../../public/assets/loader.json';
+import CustomizedSnackbars from "./Snackbar";
 
 export default function Dashboard() {
   const [userInput, setUserInput] = useState("");
@@ -15,27 +16,37 @@ export default function Dashboard() {
   const [steps, setSteps] = useState(30)
   const [customizations, setCustomizations] = useState("")
   const [errMessage, setErrMessage] = useState("")
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    document.title = "Dashboard | ComicifyAI";
+  }, []);
 
   const fileTypes = ["PDF"];
 
-  const clickHandler = () => {
-    setLoading(true)
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        'userInput': userInput,
-        'cfgValue': cfgValue,
-        'steps': steps,
-        'customizations': customizations
-      }),
-      redirect: "follow",
-    }
+  const limitCharacters = (text) => {
+    return (text.length <= 30) ? text : (text.slice(0, 30) + "...");
+  };
 
-    fetch("https://backend.comicify-ai-backend.com/", requestOptions)
+  const submitHandler = async () => {
+    try {
+      setLoading(true)
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          'userInput': userInput,
+          'cfgValue': cfgValue,
+          'steps': steps,
+          'customizations': customizations
+        }),
+        redirect: "follow",
+      }
 
-      .then(response => response.blob())
-      .then(blob => {
+
+      const response = await fetch("https://backend.comicify-ai-backend.com/", requestOptions)
+      if (response.ok) {
+        const blob = await response.blob();
         const downloadUrl = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = downloadUrl;
@@ -46,11 +57,28 @@ export default function Dashboard() {
 
         setLoading(false)
         setUserInput("")
-      })
-      .catch(error => {
-        console.error('Error downloading file:', error);
+
+      } else {
+        const err = await response.json()
+        const message = limitCharacters(err.error)
+        setErrMessage(message)
+        setLoading(false)
+        setOpen(true)
       }
-      );
+
+    } catch (err) {
+      setLoading(false)
+    }
+
+  }
+
+  const clickHandler = () => {
+    if (userInput.length == 0) {
+      setErrMessage("Please enter a prompt")
+      setOpen(true)
+    } else {
+      submitHandler();
+    }
   }
 
   return (
@@ -79,7 +107,7 @@ export default function Dashboard() {
                 cols="50"
                 type="text"
                 id="UserMessage"
-                placeholder="write your message here and also write the character and modification you want to have"
+                placeholder="Write a clear and descriptive message about what you would like to comicify. Check the Examples if you'd like to get some inspiration!"
                 value={userInput}
                 className="mt-1 w-full p-4 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 h-full"
                 onChange={(e) => setUserInput(e.target.value)}
@@ -95,7 +123,7 @@ export default function Dashboard() {
                 cols="50"
                 id="customizations"
                 type="text"
-                placeholder="put your fav style according to which you want to customize"
+                placeholder="Enter your favourite comic style like DC, Marvel, Anime or get creative!"
                 value={customizations}
                 onChange={(e) => setCustomizations(e.target.value)}
                 className="mt-1 w-full p-3 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 "
@@ -119,6 +147,10 @@ export default function Dashboard() {
 
         </div>
       }
+      <div>
+        <CustomizedSnackbars open={open} setOpen={setOpen} message={errMessage} />
+      </div>
     </main>
   );
 }
+

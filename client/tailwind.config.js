@@ -24,6 +24,7 @@ module.exports = {
       md: "1060px",
       lg: "1200px",
       xl: "1700px",
+      sm_max: { 'max': '768px' },
     },
   },
   plugins: [],

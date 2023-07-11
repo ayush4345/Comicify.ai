@@ -15,7 +15,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className={`flex md:flex-row flex-col ${styles.paddingY}`}
+      className={`flex md:flex-row flex-col mb-14 ${styles.paddingY}`}
     >
       <div className="flex  w-full items-center justify-center">
         {/* <div className="bg-opacity-75 bg-gray-600 w-1/3"></div> */}

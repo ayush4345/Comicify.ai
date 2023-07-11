@@ -28,12 +28,9 @@ Test run the server
 
 `gunicorn -b :5000 --timeout=200 main:app`
 
-Add certificate. Copy the `fullchain` and0 `privkey` contents from an existing server.
+Add certificate. Copy the `fullchain` and `privkey` contents from an existing server.
 
 ```
-sudo apt install snapd supervisor
-sudo snap install --classic certbot
-sudo ln -s /snap/bin/certbot /usr/bin/certbot
 sudo vi fullchain.pem
 sudo vi privkey.pem
 ```
@@ -58,4 +55,5 @@ sudo vi /etc/systemd/system/comicify.service
 sudo systemctl daemon-reload
 sudo systemctl enable comicify
 sudo systemctl start comicify
+sudo systemctl status comicify
 ```

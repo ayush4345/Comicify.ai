@@ -4,6 +4,7 @@ import { FileUploader } from "react-drag-drop-files";
 import Lottie from "react-lottie-player";
 import loader from '@/../../public/assets/loader.json';
 import CustomizedSnackbars from "./Snackbar";
+import Tooltip from '@mui/material/Tooltip';
 
 export default function Dashboard() {
   const [userInput, setUserInput] = useState("");
@@ -100,25 +101,6 @@ export default function Dashboard() {
           >
             <div className="flex flex-col h-full w-full p-4 leading-normal ">
 
-            <label
-                for="stableDiffusionKey"
-                className="block text-xs font-medium text-gray-700 mt-2"
-              >
-                <span className="flex justify-between">Stable Diffusion Key*<span className="text-gray-400 font-thin italic">You can get a key following the instructions <a href="https://beta.dreamstudio.ai/account" target="_blank" className="underline text-red-600 hover:text-red-700 transition duration-100">here</a></span></span>
-              </label>
-              <textarea
-                rows="4"
-                cols="50"
-                id="stableDiffusionKey"
-                type="text"
-                placeholder="We are currently finding a suitable method to avoid this while staying operational. We regret the inconvenience caused!"
-                required
-                value={stableDiffusionKey}
-                onChange={(e) => setStableDiffusionKey(e.target.value)}
-                className="mt-1 w-full p-3 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 overflow-hidden"
-              >
-              </textarea>
-
               <label
                 for="UserMessage"
                 className="block text-xs font-medium text-gray-700"
@@ -152,6 +134,27 @@ export default function Dashboard() {
                 className="mt-1 w-full p-3 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 md:overflow-hidden"
               >
               </textarea>
+              
+              <label
+                for="stableDiffusionKey"
+                className="block text-xs font-medium text-gray-700 mt-2"
+              >
+                <span className="md:flex grid flex-row justify-between">Stable Diffusion Key*<span className="p-1 text-gray-400 font-thin italic">You can get a key following the instructions <a href="https://beta.dreamstudio.ai/account" target="_blank" className="underline text-red-600 hover:text-red-700 transition duration-100">here</a></span></span>
+              </label>
+             
+              <Tooltip title="Don't worry, your keys are encrypted and not saved :)" placement="bottom-start" arrow disableFocusListener>
+                  <input
+                    
+                    id="stableDiffusionKey"
+                    type="password"
+                    placeholder="Enter your stable diffusion key"
+                    value={stableDiffusionKey}
+                    onChange={(e) => setStableDiffusionKey(e.target.value)}
+                    className="mt-1 w-full p-3 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 overflow-hidden"
+                  >
+                  </input>
+              </Tooltip>
+
               <div className="flex gap-4 mt-4">
                 <span className="w-full">
                   <label for="cfg_scale" class=" mb-2 text-sm font-medium text-gray-900">CFG Scale{' '}{cfgValue}</label>
@@ -166,6 +169,8 @@ export default function Dashboard() {
                 Submit
               </button>
             </div>
+
+
           </section>
 
         </div>

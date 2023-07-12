@@ -7,7 +7,7 @@ import CustomizedSnackbars from "./Snackbar";
 
 export default function Dashboard() {
   const [userInput, setUserInput] = useState("");
-  const [SDKey, setSDKey] = useState("");
+  const [stableDiffusionKey, setStableDiffusionKey] = useState("");
   const [file, setFile] = useState(null);
   const handleChange = (file) => {
     setFile(file);
@@ -40,7 +40,7 @@ export default function Dashboard() {
           'cfgValue': cfgValue,
           'steps': steps,
           'customizations': customizations,
-          'key': SDKey
+          'key': stableDiffusionKey
         }),
         redirect: "follow",
       }
@@ -59,7 +59,7 @@ export default function Dashboard() {
 
         setLoading(false)
         setUserInput("")
-        setSDKey("")
+        setStableDiffusionKey("")
 
       } else {
         const err = await response.json()
@@ -76,8 +76,8 @@ export default function Dashboard() {
   }
 
   const clickHandler = () => {
-    if (userInput.length == 0 || SDKey.length == 0) {
-      setErrMessage("Please fill the required parameters")
+    if (userInput.length == 0 || stableDiffusionKey.length == 0) {
+      setErrMessage("Prompt or Stable Diffusion Key cannot be empty!")
       setOpen(true)
     } else {
       submitHandler();
@@ -101,20 +101,20 @@ export default function Dashboard() {
             <div className="flex flex-col h-full w-full p-4 leading-normal ">
 
             <label
-                for="SDKey"
+                for="stableDiffusionKey"
                 className="block text-xs font-medium text-gray-700 mt-2"
               >
-                <span className="flex justify-between">Stable Diffusion Key *<span className="text-gray-400 font-thin italic">Get SD Key from <a href="https://beta.dreamstudio.ai/account" target="_blank" className="underline text-red-600 hover:text-red-700 transition duration-100">here</a></span></span>
+                <span className="flex justify-between">Stable Diffusion Key*<span className="text-gray-400 font-thin italic">You can get a key following the instructions <a href="https://beta.dreamstudio.ai/account" target="_blank" className="underline text-red-600 hover:text-red-700 transition duration-100">here</a></span></span>
               </label>
               <textarea
-                rows="2"
+                rows="4"
                 cols="50"
-                id="SDKey"
+                id="stableDiffusionKey"
                 type="text"
-                placeholder="Enter your Stable Diffusion Key here"
+                placeholder="We are currently finding a suitable method to avoid this while staying operational. We regret the inconvenience caused!"
                 required
-                value={SDKey}
-                onChange={(e) => setSDKey(e.target.value)}
+                value={stableDiffusionKey}
+                onChange={(e) => setStableDiffusionKey(e.target.value)}
                 className="mt-1 w-full p-3 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 overflow-hidden"
               >
               </textarea>
@@ -123,7 +123,7 @@ export default function Dashboard() {
                 for="UserMessage"
                 className="block text-xs font-medium text-gray-700"
               >
-                Prompt *
+                Prompt*
               </label>
               <textarea
                 rows="4"

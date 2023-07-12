@@ -21,11 +21,11 @@ os.environ['STABILITY_KEY'] = os.getenv('STABLE_DIFFUSION_API')
 os.environ['OPENAI_API'] = os.getenv('OPEN_AI_API')
 os.environ['CONVERT_API_KEY'] = os.getenv('CONVERT_API')
 
-stability_api = client.StabilityInference(
-    key=os.environ['STABILITY_KEY'],
-    verbose=True,
-    engine="stable-diffusion-xl-beta-v2-2-2",
-)
+# stability_api = client.StabilityInference(
+#     key=os.environ['STABILITY_KEY'],
+#     verbose=True,
+#     engine="stable-diffusion-xl-beta-v2-2-2",
+# )
 
 app = Flask(__name__)
 
@@ -105,7 +105,12 @@ def generate_map_from_text(text):
 
 # Create an image from the generated speech and person information using the Stable Diffusion API
 
-def stable_diff(person, speech, name, features, cfg, step):
+def stable_diff(person, speech, name, features, cfg, step, key):
+    stability_api = client.StabilityInference(
+    key=key,
+    verbose=True,
+    engine="stable-diffusion-xl-beta-v2-2-2",
+)
     try:
         answer = stability_api.generate(
             prompt=f"""
@@ -241,6 +246,7 @@ def generate_comic_from_text():
         customisation = request.get_json()['customizations']
         cfg = request.get_json()['cfgValue']
         step = request.get_json()['steps']
+        key = request.get_json()['key']
 
         print(user_input)
         print(customisation)
@@ -254,7 +260,7 @@ def generate_comic_from_text():
         for i in range(len(response[0])):
 
             image_path = stable_diff(
-                response[1][i], response[0][i], i, customisation, cfg, step)
+                response[1][i], response[0][i], i, customisation, cfg, step, key)
             print(image_path)
             generated_images_paths.append(image_path)
 

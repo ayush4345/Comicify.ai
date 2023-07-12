@@ -65,7 +65,7 @@ export const navLinks = [
     title: "Examples",
   },
   {
-    url: "#",
+    url: "https://www.producthunt.com/posts/comicify-ai",
     title: "Contact Us",
   },
 ];

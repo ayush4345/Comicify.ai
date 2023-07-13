@@ -7,6 +7,7 @@ sudo apt update
 sudo apt upgrade
 sudo apt-get install python3-pip lsof libgl1-mesa-glx git
 pip install --upgrade pip virtualenv
+git config --global pull.rebase false
 ```
 
 Clone the repo and install requirements
@@ -52,6 +53,19 @@ Create a service for the server. Copy the contents from an existing server.
 
 ```
 sudo vi /etc/systemd/system/comicify.service
+sudo systemctl daemon-reload
+sudo systemctl enable comicify
+sudo systemctl start comicify
+sudo systemctl status comicify
+```
+
+Redeploying script
+
+```
+cd Comicify.ai/server/
+source flask/bin/activate
+git pull origin main
+sudo systemctl stop comicify
 sudo systemctl daemon-reload
 sudo systemctl enable comicify
 sudo systemctl start comicify

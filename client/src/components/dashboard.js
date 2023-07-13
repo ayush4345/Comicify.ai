@@ -27,7 +27,7 @@ export default function Dashboard() {
   const fileTypes = ["PDF"];
 
   const limitCharacters = (text) => {
-    return (text.length <= 30) ? text : (text.slice(0, 30) + "...");
+    return (text.length <= 30) ? text : (text.slice(0, 120) + "...");
   };
 
   const submitHandler = async () => {
@@ -147,7 +147,7 @@ export default function Dashboard() {
                     
                     id="stableDiffusionKey"
                     type="password"
-                    placeholder="Enter your stable diffusion key"
+                    placeholder="Enter your stable diffusion key (e.g., sk-C2Y**************Pjr)"
                     value={stableDiffusionKey}
                     onChange={(e) => setStableDiffusionKey(e.target.value)}
                     className="mt-1 w-full p-3 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 overflow-hidden"

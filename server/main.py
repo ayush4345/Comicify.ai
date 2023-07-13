@@ -149,12 +149,15 @@ def stable_diff(person, speech, name, features, cfg, step, key):
                     return image_path
     except Exception as e:
         error_message = str(e)
+        balance_err = "Your organization does not have enough balance to request this action"
         details_match = re.search('details = "(.*?)"', error_message)
         if details_match:
             details = details_match.group(1)
-            error_message = f"Error occurred as: {details}"
+            if details.startswith(balance_err):
+                raise Exception("Insufficient balance in stable diffusion key. Please top up and try again.")
+            error_message = details
         else:
-            error_message = f"Error occurred: {error_message}"
+            error_message = error_message
         print(error_message)
         raise Exception(error_message)
 

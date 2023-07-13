@@ -4,9 +4,11 @@ import { FileUploader } from "react-drag-drop-files";
 import Lottie from "react-lottie-player";
 import loader from '@/../../public/assets/loader.json';
 import CustomizedSnackbars from "./Snackbar";
+import Tooltip from '@mui/material/Tooltip';
 
 export default function Dashboard() {
   const [userInput, setUserInput] = useState("");
+  const [stableDiffusionKey, setStableDiffusionKey] = useState("");
   const [file, setFile] = useState(null);
   const handleChange = (file) => {
     setFile(file);
@@ -25,7 +27,7 @@ export default function Dashboard() {
   const fileTypes = ["PDF"];
 
   const limitCharacters = (text) => {
-    return (text.length <= 30) ? text : (text.slice(0, 30) + "...");
+    return (text.length <= 30) ? text : (text.slice(0, 120) + "...");
   };
 
   const submitHandler = async () => {
@@ -38,7 +40,8 @@ export default function Dashboard() {
           'userInput': userInput,
           'cfgValue': cfgValue,
           'steps': steps,
-          'customizations': customizations
+          'customizations': customizations,
+          'key': stableDiffusionKey
         }),
         redirect: "follow",
       }
@@ -57,6 +60,7 @@ export default function Dashboard() {
 
         setLoading(false)
         setUserInput("")
+        setStableDiffusionKey("")
 
       } else {
         const err = await response.json()
@@ -73,8 +77,8 @@ export default function Dashboard() {
   }
 
   const clickHandler = () => {
-    if (userInput.length == 0) {
-      setErrMessage("Please enter a prompt")
+    if (userInput.length == 0 || stableDiffusionKey.length == 0) {
+      setErrMessage("Prompt or Stable Diffusion Key cannot be empty!")
       setOpen(true)
     } else {
       submitHandler();
@@ -93,14 +97,15 @@ export default function Dashboard() {
         </div>
         : <div className="flex justify-center gap-5">
           <section
-            className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 h-[550px] w-[600px]"
+            className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 h-[550px] w-[600px] m-4"
           >
-            <div className="flex flex-col h-full w-full p-4 leading-normal">
+            <div className="flex flex-col h-full w-full p-4 leading-normal ">
+
               <label
                 for="UserMessage"
                 className="block text-xs font-medium text-gray-700"
               >
-                Prompt
+                Prompt*
               </label>
               <textarea
                 rows="4"
@@ -126,9 +131,30 @@ export default function Dashboard() {
                 placeholder="Enter your favourite comic style like DC, Marvel, Anime or get creative!"
                 value={customizations}
                 onChange={(e) => setCustomizations(e.target.value)}
-                className="mt-1 w-full p-3 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 "
+                className="mt-1 w-full p-3 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 md:overflow-hidden"
               >
               </textarea>
+              
+              <label
+                for="stableDiffusionKey"
+                className="block text-xs font-medium text-gray-700 mt-2"
+              >
+                <span className="md:flex grid flex-row justify-between">Stable Diffusion Key*<span className="p-1 text-gray-400 font-thin italic">You can get a key following the instructions <a href="https://beta.dreamstudio.ai/account" target="_blank" className="underline text-red-600 hover:text-red-700 transition duration-100">here</a></span></span>
+              </label>
+             
+              <Tooltip title="Don't worry, your keys are encrypted and not saved :)" placement="bottom-start" arrow disableFocusListener>
+                  <input
+                    
+                    id="stableDiffusionKey"
+                    type="password"
+                    placeholder="Enter your stable diffusion key (e.g., sk-C2Y**************Pjr)"
+                    value={stableDiffusionKey}
+                    onChange={(e) => setStableDiffusionKey(e.target.value)}
+                    className="mt-1 w-full p-3 rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-200 overflow-hidden"
+                  >
+                  </input>
+              </Tooltip>
+
               <div className="flex gap-4 mt-4">
                 <span className="w-full">
                   <label for="cfg_scale" class=" mb-2 text-sm font-medium text-gray-900">CFG Scale{' '}{cfgValue}</label>
@@ -143,6 +169,8 @@ export default function Dashboard() {
                 Submit
               </button>
             </div>
+
+
           </section>
 
         </div>

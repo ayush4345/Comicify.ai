@@ -1,12 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navLinks } from "../constants";
 import styles from "../styles/style";
 import Link from "next/link";
 import classes from "./Navbar.module.css";
+import { useRouter } from "next/router";
+import { supabase } from "@/utils/supabase";
 
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   const [toggle, setToggle] = useState(false);
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    if (user) {
+      setIsLoggedIn(true)
+    }
+  }, [user])
+
+  const userLogOut = async () => {
+    try {
+      const { error } = await supabase.auth.signOut()
+
+      router.push('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  console.log(user)
 
   return (
     <div className={styles.flexCenter}>
@@ -36,13 +58,29 @@ const Navbar = () => {
                 <Link href={`${nav.url}`} target="_blank">{nav.title}</Link>
               </li>
             ))}
+            {isLoggedIn
+              ? <li>
+                <button
+                  onClick={() => {
+                    userLogOut()
+                  }}
+                  className="bg-teal-600 hover:bg-teal-900 text-white py-3 px-6 rounded-full drop-shadow-2xl font-poppins font-semibold text-[16px]" >
+                  Logout
+                </button>
+              </li>
+              : <li>
+                <button className="bg-teal-600 hover:bg-teal-900 text-white py-3 px-6 rounded-full drop-shadow-2xl font-poppins font-semibold text-[16px]" onClick={() => router.push("/auth/login")}>
+                  Register/Login
+                </button>
+              </li>
+            }
           </ul>
 
           {/* only for mobile devices, created separately */}
           <div className="sm:hidden flex flex-1 justify-end items-center">
             {/* shows toggle icon based on its state */}
             <img
-              src={toggle ? "./assets/close.svg" : "./assets/menu.svg"}
+              src={toggle ? "/assets/close.svg" : "/assets/menu.svg"}
               alt="menu"
               className="w-[28px] h-[28px] object-contain"
               // correct way to change state using the prev
@@ -73,6 +111,12 @@ const Navbar = () => {
             </div>
           </div>
         </nav>
+        {!(user?.confirmed_at) &&
+          <div
+            className="w-full p-[10px] bg-red-400 text-[16px] font-semibold text-white flex justify-center">
+            Please confirm your email address. Check your inbox.
+          </div>
+        }
       </div>
     </div>
   );

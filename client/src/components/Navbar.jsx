@@ -111,6 +111,12 @@ const Navbar = ({ user }) => {
             </div>
           </div>
         </nav>
+        {!(user?.confirmed_at) &&
+          <div
+            className="w-full p-[10px] bg-red-400 text-[16px] font-semibold text-white flex justify-center">
+            Please confirm your email address. Check your inbox.
+          </div>
+        }
       </div>
     </div>
   );

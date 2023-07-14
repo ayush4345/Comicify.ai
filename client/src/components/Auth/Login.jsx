@@ -6,14 +6,21 @@ export default function Login() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [isValidEmail, setIsValidEmail] = useState(true)
+
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/
 
     const handleSignIn = async () => {
 
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email,
-            password
-        })
-        console.log(data, error)
+        if (emailRegex.test(email)) {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password
+            })
+            console.log(data, error)
+        } else {
+            setIsValidEmail(false)
+        }
     }
 
     const googleSignIn = async () => {
@@ -57,18 +64,24 @@ export default function Login() {
                         <span class="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
                     </div>
 
-                    <div class="mt-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" for="LoggingEmailAddress">Email Address</label>
-                        <input id="LoggingEmailAddress" onChange={(e) => setEmail(e.target.value)} class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="email" />
+                    <div className="relative flex items-center mt-4">
+                        <span className="absolute">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </span>
+
+                        <input type="email" onChange={(e) => setEmail(e.target.value)} className={`block w-full py-3 text-gray-700 bg-white border ${isValidEmail ? `` : `border-red-500`} rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40`} placeholder="Email address" />
                     </div>
 
-                    <div class="mt-4">
-                        <div class="flex justify-between">
-                            <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" for="loggingPassword">Password</label>
-                            <a href="#" class="text-xs text-gray-500 dark:text-gray-300 hover:underline">Forget Password?</a>
-                        </div>
+                    <div className="relative flex items-center mt-4">
+                        <span className="absolute">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </span>
 
-                        <input id="loggingPassword" onChange={(e) => setPassword(e.target.value)} class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="password" />
+                        <input type="password" onChange={(e) => setPassword(e.target.value)} className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" />
                     </div>
 
                     <div class="mt-6">

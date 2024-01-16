@@ -50,11 +50,11 @@ def convert_text_to_conversation(text):
     # Call the Gemini API to generate a response
     try:
         
-        response = gemini_pro_api(text)
+        response = request_gemini_pro_api(text)
 
         # Example use of ChatGPT API
 
-        # response = chat_gpt_api(text)
+        # response = request_chat_gpt_api(text)
 
         # Process the response to extract speech and person information
 
@@ -231,7 +231,7 @@ def add_text_to_image(image_path, text_from_prompt, file_number):
 
 # Configure gemini api
     
-def gemini_pro_api(prompt):
+def request_gemini_pro_api(prompt):
 
     GEMINI_API_KEY = os.environ['GEMINI_API_KEY'] # API key for Gemini
     genai.configure(api_key=GEMINI_API_KEY) # Configure the API key
@@ -241,7 +241,7 @@ def gemini_pro_api(prompt):
 
 # Configure chat gpt api
 
-def chat_gpt_api(prompt):
+def request_chat_gpt_api(prompt):
 
     openai.api_key = os.environ['OPENAI_API']
 

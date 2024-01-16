@@ -47,7 +47,7 @@ export default function Dashboard() {
       }
 
 
-      const response = await fetch("https://backend.comicify-ai-backend.com/", requestOptions)
+      const response = await fetch("http://127.0.0.1:5000/", requestOptions)
       if (response.ok) {
         const blob = await response.blob();
         const downloadUrl = URL.createObjectURL(blob);

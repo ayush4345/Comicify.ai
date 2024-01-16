@@ -13,6 +13,10 @@ import convertapi
 import cv2
 import json
 import re
+import pathlib
+import textwrap
+
+import google.generativeai as genai
 
 load_dotenv()
 
@@ -20,6 +24,10 @@ os.environ['STABILITY_HOST'] = 'grpc.stability.ai:443'
 os.environ['STABILITY_KEY'] = os.getenv('STABLE_DIFFUSION_API')
 os.environ['OPENAI_API'] = os.getenv('OPEN_AI_API')
 os.environ['CONVERT_API_KEY'] = os.getenv('CONVERT_API')
+os.environ['GEMINI_API_KEY'] = os.getenv('GEMINI_API_KEY')
+
+GEMINI_API_KEY = os.environ['GEMINI_API_KEY']
+genai.configure(api_key=GEMINI_API_KEY)
 
 # stability_api = client.StabilityInference(
 #     key=os.environ['STABILITY_KEY'],
@@ -42,27 +50,33 @@ def convert_text_to_conversation(text):
 
     # Call the OpenAI API to generate a response
     try:
+        model = genai.GenerativeModel('gemini-pro')
         openai.api_key = os.environ['OPENAI_API']
+        response = model.generate_content(text)
 
-        response = openai.ChatCompletion.create(
+        print(response.text)
 
-            model="gpt-3.5-turbo",
+        # response = openai.ChatCompletion.create(
 
-            messages=[{
-                "role": "system",
-                "content": "You are a fun yet knowledgeable assistant."
-            }, {
-                "role": "user",
-                "content": text
-            }],
+        #     model="gpt-3.5-turbo",
 
-            temperature=0.6,
-            max_tokens=150)
+        #     messages=[{
+        #         "role": "system",
+        #         "content": "You are a fun yet knowledgeable assistant."
+        #     }, {
+        #         "role": "user",
+        #         "content": text
+        #     }],
+
+        #     temperature=0.6,
+        #     max_tokens=150)
 
         # Process the response to extract speech and person information
 
         speech, person = generate_map_from_text(
-            response.choices[0].message.content)
+            # response.choices[0].message.content
+            response.text
+            )
 
         # Return the generated speech and person information
         return (speech, person)

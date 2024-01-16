@@ -26,8 +26,7 @@ os.environ['OPENAI_API'] = os.getenv('OPEN_AI_API')
 os.environ['CONVERT_API_KEY'] = os.getenv('CONVERT_API')
 os.environ['GEMINI_API_KEY'] = os.getenv('GEMINI_API_KEY')
 
-GEMINI_API_KEY = os.environ['GEMINI_API_KEY']
-genai.configure(api_key=GEMINI_API_KEY)
+
 
 # stability_api = client.StabilityInference(
 #     key=os.environ['STABILITY_KEY'],
@@ -42,40 +41,25 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 # ==== Helper Functions ====
 
 """
-This function interacts with the GPT-3.5-turbo language model through the OpenAI API.
+This function interacts with the Generative AI Model.
 It takes a user's query or message as input and returns the generated response.
  """
 
 def convert_text_to_conversation(text):
 
-    # Call the OpenAI API to generate a response
+    # Call the Gemini API to generate a response
     try:
-        model = genai.GenerativeModel('gemini-pro')
-        openai.api_key = os.environ['OPENAI_API']
-        response = model.generate_content(text)
+        
+        response = request_gemini_pro_api(text)
 
-        print(response.text)
+        # Example use of ChatGPT API
 
-        # response = openai.ChatCompletion.create(
-
-        #     model="gpt-3.5-turbo",
-
-        #     messages=[{
-        #         "role": "system",
-        #         "content": "You are a fun yet knowledgeable assistant."
-        #     }, {
-        #         "role": "user",
-        #         "content": text
-        #     }],
-
-        #     temperature=0.6,
-        #     max_tokens=150)
+        # response = request_chat_gpt_api(text)
 
         # Process the response to extract speech and person information
 
         speech, person = generate_map_from_text(
-            # response.choices[0].message.content
-            response.text
+            response
             )
 
         # Return the generated speech and person information
@@ -245,7 +229,38 @@ def add_text_to_image(image_path, text_from_prompt, file_number):
     except Exception as e:
         raise Exception(f"Error occurred during text addition: {e}")
 
+# Configure gemini api
+    
+def request_gemini_pro_api(prompt):
 
+    GEMINI_API_KEY = os.environ['GEMINI_API_KEY'] # API key for Gemini
+    genai.configure(api_key=GEMINI_API_KEY) # Configure the API key
+    model = genai.GenerativeModel('gemini-pro') # Load the model
+    response = model.generate_content(prompt) # Generate the response
+    return response.text
+
+# Configure chat gpt api
+
+def request_chat_gpt_api(prompt):
+
+    openai.api_key = os.environ['OPENAI_API']
+
+    response = openai.ChatCompletion.create(
+
+    model="gpt-3.5-turbo",
+
+    messages=[{
+        "role": "system",
+        "content": "You are a fun yet knowledgeable assistant."
+    }, {
+        "role": "user",
+        "content": prompt
+    }],
+
+    temperature=0.6,
+    max_tokens=150)
+
+    return response.choices[0].message.content
 # ==== Routes ====
 
 @app.route('/', methods=['GET'])
